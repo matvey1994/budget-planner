@@ -20,6 +20,9 @@ export function useSignup() {
                     throw new Error('Could not complete signup');
                 }
             })
+            .then(() => {
+                setIsPending(false)
+            })
             .catch((err) => {
                 setError(err.message)
                 setIsPending(false)
