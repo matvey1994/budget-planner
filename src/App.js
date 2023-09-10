@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Redirect, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 // pages and components
@@ -16,17 +16,20 @@ function App() {
         <BrowserRouter>
           <Navbar/>
           <Routes>
-            <Route path="/" element={<Home />} />
-              {/* {!user && <Redirect to="/login" />}
-              {user && <Home />} */}
+            <Route 
+              path="/"
+              element={!user ? <Navigate to="/login" /> : <Home/> }
+            />
 
-            <Route path="/login" element={<Login/>} />
-              {/* {user && <Redirect to="/" />}
-              {!user && <Login />} */}
+            <Route 
+              path="/login"
+              element={user ? <Navigate to="/" /> : <Login/>} 
+            />
 
-            <Route path="/signup" element={<Signup/>} />
-              {/* {user && <Redirect to="/" />}
-              {!user && <Signup />} */}
+            <Route 
+              path="/signup"
+              element={user ? <Navigate to="/" /> : <Signup/>}
+            />
 
           </Routes>
         </BrowserRouter>
