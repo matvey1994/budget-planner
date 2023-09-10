@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext"
 
 // firebase imports
 import { auth } from "../firebase/config";
@@ -7,6 +8,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 export function useSignup() {
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
+    const { dispatch } = useAuthContext()
 
     const signup = (email, password, displayName) => {
         setError(null)
@@ -15,19 +17,19 @@ export function useSignup() {
         createUserWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 if(res.user) {
-                    updateProfile(res.user, { displayName });
+                    return updateProfile(res.user, { displayName })
+                        .then(() => {
+                            setIsPending(false);
+                            dispatch({ type: 'LOGIN', payload: res.user });
+                        });
                 } else {
                     throw new Error('Could not complete signup');
                 }
             })
-            .then(() => {
-                setIsPending(false)
-            })
             .catch((err) => {
                 setError(err.message)
                 setIsPending(false)
-            })
-
+            });
     }
     return { error, isPending, signup }
 }
