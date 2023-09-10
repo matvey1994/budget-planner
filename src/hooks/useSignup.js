@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // firebase imports
 import { auth } from "../firebase/config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 export function useSignup() {
     const [error, setError] = useState(null)
@@ -10,15 +10,21 @@ export function useSignup() {
 
     const signup = (email, password, displayName) => {
         setError(null)
-        createUserWithEmailAndPassword(auth, email, password, displayName)
+        setIsPending(true)
+
+        createUserWithEmailAndPassword(auth, email, password)
             .then((res) => {
-                console.log('user signed up', res.user)
+                if(res.user) {
+                    updateProfile(res.user, { displayName });
+                } else {
+                    throw new Error('Could not complete signup');
+                }
             })
             .catch((err) => {
                 setError(err.message)
+                setIsPending(false)
             })
 
     }
-
-    return { error, signup }
+    return { error, isPending, signup }
 }
