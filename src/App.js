@@ -30,7 +30,6 @@ function App() {
               path="/signup"
               element={user ? <Navigate to="/" /> : <Signup/>}
             />
-
           </Routes>
         </BrowserRouter>
       )}
