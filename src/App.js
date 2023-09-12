@@ -14,7 +14,6 @@ function App() {
     <div className="App">
       {authIsReady && (
         <BrowserRouter>
-          <Navbar/>
           <Routes>
             <Route 
               path="/"
