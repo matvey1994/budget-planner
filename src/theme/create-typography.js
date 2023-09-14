@@ -75,8 +75,8 @@ export const createTypography = () => {
       montserrat: {
         fontFamily: '"Montserrat", sans-serif',
         fontWeight: 600,
-        fontSize: '5rem',
-        lineHeight: 1.2,
+        fontSize: '3rem',
+        lineHeight: 1.1,
         color: 'white',
       },
     };

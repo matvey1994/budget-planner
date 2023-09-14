@@ -18,7 +18,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { Link as RouterLink } from 'react-router-dom';
-import img from '../../assets/images/background.png'
+import img from '../../assets/images/Dual_blob.svg'
 
 
 export default function Signup() {
@@ -61,7 +61,6 @@ export default function Signup() {
       sx={{
         background: 'linear-gradient(to right, #5C7CF2 50%, #F5F6FA 50%, #F5F6FA 100%)', // Replace with your preferred background color
         minHeight: '100vh',
-
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -87,30 +86,22 @@ export default function Signup() {
                 height: '100%',
                 width: '100%',
                 background: '#6383FA',
-                display: 'grid',
-                gridTemplateColumns: '0.1fr 1.5fr',
-                gridTemplateRows: 'repeat(2, 1.5fr) 0.5fr 1.5fr',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundImage: `url(${img})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center'
               }}
             >
-              {/* <img
-                src='' 
-                alt="Descriptive alt text"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              /> */}
-                <Typography 
-                  variant='montserrat'
+                <Typography
+                  variant='montserrat' 
                   sx={{ 
-                    gridArea: '2/2/3/3',
-                    display: 'flex',
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-
+                    textAlign: 'center',
+                    fontSize: '4em'
                 }}>
-                  Track Your <br/> Budget
+                    Track Your Budget
                 </Typography>
             </Box>
           </Grid>
