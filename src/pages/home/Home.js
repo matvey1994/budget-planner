@@ -21,7 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-import logo from '../../assets/images/logo.png'
+import Navbar from '../../components/Navbar'
 
 function Copyright(props) {
   return (
@@ -200,6 +200,7 @@ export default function Dashboard() {
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
+        <Navbar />
       </Box>
     </ThemeProvider>
   );

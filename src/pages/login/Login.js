@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useLogin } from '../../hooks/useLogin'
+import Navbar from '../../components/Navbar'
+
 
 // Styles
 import styles from './Login.module.css'
@@ -16,6 +18,7 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit} className={styles['login-form']}>
+      <Navbar/>
       <h2>Login</h2>
       <label>
         <span>email:</span>
