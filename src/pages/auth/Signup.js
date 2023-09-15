@@ -19,6 +19,7 @@ import * as Yup from 'yup';
 
 import { Link as RouterLink } from 'react-router-dom';
 import img from '../../assets/images/Dual_blob.svg'
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 export default function Signup() {
@@ -26,6 +27,8 @@ export default function Signup() {
   // const [password, setPassword] = useState('')
   // const [displayName, setDisplayName] = useState('')
   const { error, isPending, signup } = useSignup()
+
+  const matches = useMediaQuery('(min-width:600px)');
 
   // const handleSubmit = (e) => {
   //   e.preventDefault()
@@ -59,19 +62,30 @@ export default function Signup() {
   return (
     <Box
       sx={{
-        background: 'linear-gradient(to right, #5C7CF2 50%, #F5F6FA 50%, #F5F6FA 100%)', // Replace with your preferred background color
+        background: matches 
+         ? 'linear-gradient(to right, #5C7CF2 50%, #F5F6FA 50%, #F5F6FA 100%)'
+         : '#5C7CF2', // Replace with your preferred background color
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        ...(!matches ? {
+          backgroundImage: `url(${img})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+        } : {})
       }}
     >
       <Box
         sx={{
           display: 'flex',
           maxWidth: '80vw', // Max width added to prevent stretching
-          width: '100%', 
-          height: ['auto', '800px'],
+          width: '100%',
+          height: !matches
+          ? '600px'
+          : '800px',
+    
           backgroundColor: '#fff',
           borderRadius: '30px', 
           overflow: 'hidden',
@@ -80,7 +94,7 @@ export default function Signup() {
         }}
       >
         <Grid container>
-          <Grid item xs={12} md={6}>
+          <Grid item xs md sx={{ display: { xs: 'none', md: 'flex' }, '@media (max-width: 1200px)': { display: 'none' } }}>
             <Box
               sx={{
                 height: '100%',
@@ -105,7 +119,7 @@ export default function Signup() {
                 </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs md sx={{ '@media (max-width: 1200px)': { flexDirection: 'column', alignItems: 'center'} }}>
             <Box
               sx={{
                 display: 'flex',
@@ -119,13 +133,18 @@ export default function Signup() {
               <Typography variant="h4">
                 Register
               </Typography>
-              <Stack spacing={1} sx={{ mb: 3 }}>
+              <Stack spacing={1} sx={{ mb: 3, ml: 2 }}>
                 <Typography variant="body2" color="text.secondary">
                   Already have an account?&nbsp;
                   <Link
                     to="/auth/login"
                     underline="hover"
                     variant="subtitle2"
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                      },
+                    }}
                   >
                     Log in
                   </Link>
