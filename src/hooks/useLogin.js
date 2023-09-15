@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 
 // firebase imports
 import { auth } from "../firebase/config";
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword, signInAnonymously } from "firebase/auth";
 
 export const useLogin = () => {
     const [error, setError] = useState(null)
@@ -27,5 +27,23 @@ export const useLogin = () => {
             })
 
     }
-    return { error, isPending, login }
+
+    const loginAnonymously = () => {
+        setError(null);
+        setIsPending(true);
+
+        signInAnonymously(auth)
+            .then((res) => {
+                dispatch({ type: 'LOGIN', payload: res.user })
+            })
+            .then(() => {
+                setIsPending(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setIsPending(false);
+            });
+    }
+
+    return { error, isPending, login, loginAnonymously }
 }
