@@ -1,28 +1,26 @@
 import { useLogin } from '../../hooks/useLogin'
-import { useCallback, useState } from 'react';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import {
   Alert,
   Box,
   Button,
-  FormHelperText,
   Link,
   Stack,
   TextField,
-  Typography
+  Typography,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import Collapse from '@mui/material/Collapse';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Login() {
-  const { error, login, isPending } = useLogin()
+  // Utilise isPending to add loading and prevent user from clicking on continue.
+  const { error, login, isPending, loginAnonymously } = useLogin()
+  const [open, setOpen] = useState(true)
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   login(email, password)
-  // }
-
-  const auth = useLogin();
-  const [method, setMethod] = useState('email');
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -30,40 +28,24 @@ export default function Login() {
       submit: null
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
+      email: Yup.string()
         .email('Must be a valid email')
         .max(255)
         .required('Email is required'),
-      password: Yup
-        .string()
+      password: Yup.string()
         .max(255)
         .required('Password is required')
     }),
-    onSubmit: async (values, helpers) => {
-      try {
-        await auth.signIn(values.email, values.password);
+    onSubmit: (values, helpers) => {
+        try {
+          login(values.email, values.password);
       } catch (err) {
-        helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
-        helpers.setSubmitting(false);
+          helpers.setStatus({ success: false });
+          helpers.setErrors({ submit: err.message });
+          helpers.setSubmitting(false);
       }
     }
   });
-
-  const handleMethodChange = useCallback(
-    (event, value) => {
-      setMethod(value);
-    },
-    []
-  );
-
-  const handleSkip = useCallback(
-    () => {
-      auth.skip();
-    },
-    [auth]
-  );  
 
   return (
     <>
@@ -105,8 +87,8 @@ export default function Login() {
                 Don't have an account?
               </Box>
               <Link
-                component='' // If you're using react-router-dom, use RouterLink here
-                to="/auth/register"    // Use 'to' prop instead of 'href' for react-router-dom
+                component={RouterLink}
+                to="/signup"
                 underline="hover"
                 sx={{
                   ':hover': {
@@ -148,15 +130,11 @@ export default function Login() {
                     value={formik.values.password}
                   />
                 </Stack>
-                <FormHelperText sx={{ mt: 1 }}>
-                  Optionally you can skip.
-                </FormHelperText>
                 {formik.errors.submit && (
                   <Typography
                     color="error"
                     sx={{ mt: 3 }}
                     variant="body2"
-                 
                   >
                     {formik.errors.submit}
                   </Typography>
@@ -173,49 +151,38 @@ export default function Login() {
                 <Button
                   fullWidth
                   size="large"
-                  sx={{ mt: 3 }}
-                  onClick={handleSkip}
+                  sx={{ mt: 3, background: '#F1EE63' }}
+                  onClick={loginAnonymously}
                 >
-                  Skip authentication
+                  Continue as guest
                 </Button>
-                <Alert
-                  color="primary"
-                  severity="info"
-                  sx={{ mt: 3 }}
-                >
-                  <div>
-                    You can use <b>demo@devias.io</b> and password <b>Password123!</b>
-                  </div>
-                </Alert>
+                {error && (
+                  <Collapse in={open}>
+                    <Alert
+                        color="error"
+                        severity="error"
+                        variant="outlined"
+                        sx={{ mt: 1 }}
+                        action={<IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="small"
+                          onClick={() => {
+                            setOpen(false);
+                            console.log(open)
+                          }}
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </IconButton>}
+                      >
+                        {error}
+                    </Alert>
+                  </Collapse>
+                )}
               </form>
           </div>
         </Box>
       </Box>
     </>
-
-
-    // <form onSubmit={handleSubmit} className={styles['login-form']}>
-    //   <Navbar/>
-    //   <h2>Login</h2>
-    //   <label>
-    //     <span>email:</span>
-    //     <input 
-    //       type="email"
-    //       onChange={(e) => setEmail(e.target.value)}
-    //       value={email}
-    //     />
-    //   </label>
-    //   <label>
-    //     <span>password:</span>
-    //     <input 
-    //       type="password"
-    //       onChange={(e) => setPassword(e.target.value)}
-    //       value={password}
-    //     />
-    //   </label>
-    //   {!isPending && <button className='btn'>Login</button>}
-    //   {isPending && <button className='btn' disabled>Loading</button>}
-    //   {error && <p>{error}</p>}
-    // </form>
   )
 }

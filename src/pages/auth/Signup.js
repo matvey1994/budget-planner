@@ -1,30 +1,23 @@
 import { useState } from 'react'
 import { useSignup } from '../../hooks/useSignup'
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
 import { Link as RouterLink } from 'react-router-dom';
 import img from '../../assets/images/Dual_blob.svg'
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 export default function Signup() {
+  // Utilise error to display message to user in case of authentication issue
+  // Utilise isPending to disable button after form submission and display loading animation
   const { error, isPending, signup } = useSignup()
-
   const matches = useMediaQuery('(min-width:1200px)');
 
   const formik = useFormik({
@@ -57,7 +50,7 @@ export default function Signup() {
       sx={{
         background: matches 
          ? 'linear-gradient(to right, #5C7CF2 50%, #F5F6FA 50%, #F5F6FA 100%)'
-         : '#5C7CF2', // Replace with your preferred background color
+         : '#5C7CF2',
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
@@ -73,7 +66,7 @@ export default function Signup() {
       <Box
         sx={{
           display: 'flex',
-          maxWidth: '80vw', // Max width added to prevent stretching
+          maxWidth: '80vw',
           width: '100%',
           height: !matches
           ? '600px'
@@ -82,7 +75,6 @@ export default function Signup() {
           borderRadius: '30px', 
           overflow: 'hidden',
           boxShadow: '0 0 30px rgba(0, 0, 0, 0.1)',
-           // Padding at the bottom to prevent button from touching the edge
         }}
       >
         <Grid container>
@@ -129,7 +121,8 @@ export default function Signup() {
                 <Typography variant="body2" color="text.secondary">
                   Already have an account?&nbsp;
                   <Link
-                    to="/auth/login"
+                    component={RouterLink}
+                    to="/login"
                     underline="hover"
                     variant="subtitle2"
                     sx={{
@@ -209,36 +202,4 @@ export default function Signup() {
       </Box>
     </Box>
   );
-  
-    {/* // <form onSubmit={handleSubmit} className={styles['signup-form']}>
-    //   <h2>Signup</h2>
-    //   <label>
-    //     <span>email:</span>
-    //     <input 
-    //       type="email"
-    //       onChange={(e) => setEmail(e.target.value)}
-    //       value={email}
-    //     />
-    //   </label>
-    //   <label>
-    //     <span>password:</span>
-    //     <input 
-    //       type="password"
-    //       onChange={(e) => setPassword(e.target.value)}
-    //       value={password}
-    //     />
-    //   </label>
-    //   <label>
-    //     <span>display name:</span>
-    //     <input 
-    //       type="text"
-    //       onChange={(e) => setDisplayName(e.target.value)}
-    //       value={displayName}
-    //     />
-    //   </label>
-    //   {!isPending && <button className='btn'>Signup</button>}
-    //   {isPending && <button className='btn' disabled>Loading</button>}
-    //   {error && <p>{error}</p>}
-    // </form>
-  ) */}
 }
