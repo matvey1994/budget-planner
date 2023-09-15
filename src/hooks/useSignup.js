@@ -11,6 +11,7 @@ export function useSignup() {
     const { dispatch } = useAuthContext()
 
     const signup = (email, password, displayName) => {
+        console.log('Password:', password); 
         setError(null)
         setIsPending(true)
 
@@ -27,6 +28,7 @@ export function useSignup() {
                 }
             })
             .catch((err) => {
+                console.error(err)
                 setError(err.message)
                 setIsPending(false)
             });
