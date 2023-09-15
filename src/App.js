@@ -7,6 +7,7 @@ import { createTheme } from './theme'
 import Home from './pages/home/Home'
 import Login from './pages/login/Login'
 import Signup from './pages/auth/Signup'
+import Page from './pages/404'
 import Navbar from "./components/Navbar";
 
 const theme = createTheme();
@@ -33,6 +34,12 @@ function App() {
               <Route 
                 path="/signup"
                 element={user ? <Navigate to="/" /> : <Signup/>}
+              />
+
+              <Route 
+                path="/404"
+                element={<Page/>}
+                
               />
             </Routes>
           </BrowserRouter>

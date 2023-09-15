@@ -23,22 +23,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 export default function Signup() {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
-  // const [displayName, setDisplayName] = useState('')
   const { error, isPending, signup } = useSignup()
 
-  const matches = useMediaQuery('(min-width:600px)');
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   signup(email, password, displayName)
-  // }
+  const matches = useMediaQuery('(min-width:1200px)');
 
   const formik = useFormik({
     initialValues: {
       email: '',
-      name: '',
+      displayName: '',
       password: '',
       submit: null
     },
@@ -47,7 +39,7 @@ export default function Signup() {
         .email('Must be a valid email')
         .max(255)
         .required('Email is required'),
-      name: Yup.string()
+      displayName: Yup.string()
         .max(255)
         .required('Name is required'),
       password: Yup.string()
@@ -55,7 +47,8 @@ export default function Signup() {
         .required('Password is required')
     }),
     onSubmit: (values) => {
-      signup(values.email, values.name, values.password)
+      console.log(values)
+      signup(values.email, values.password, values.displayName)
     }
   })
 
@@ -85,7 +78,6 @@ export default function Signup() {
           height: !matches
           ? '600px'
           : '800px',
-    
           backgroundColor: '#fff',
           borderRadius: '30px', 
           overflow: 'hidden',
@@ -160,14 +152,14 @@ export default function Signup() {
               >
                 <Stack spacing={3}>
                   <TextField
-                    error={Boolean(formik.touched.name && formik.errors.name)}
+                    error={Boolean(formik.touched.displayName && formik.errors.displayName)}
                     fullWidth
-                    helperText={formik.touched.name && formik.errors.name}
+                    helperText={formik.touched.displayName && formik.errors.displayName}
                     label="Name"
-                    name="name"
+                    name="displayName"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    value={formik.values.name}
+                    value={formik.values.displayName}
                   />
                   <TextField
                     error={Boolean(formik.touched.email && formik.errors.email)}
