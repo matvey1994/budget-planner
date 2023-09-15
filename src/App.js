@@ -5,7 +5,7 @@ import { createTheme } from './theme'
 
 // pages and components
 import Home from './pages/home/Home'
-import Login from './pages/login/Login'
+import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Page from './pages/404'
 import Navbar from "./components/Navbar";
