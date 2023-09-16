@@ -10,6 +10,21 @@ export const useLogin = () => {
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
 
+    const getCustomErrorMessage = (errorCode) => {
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            return 'The email address is not valid.';
+          case 'auth/user-disabled':
+            return 'This user account has been disabled.';
+          case 'auth/user-not-found':
+            return 'No user found with the provided email.';
+          case 'auth/wrong-password':
+            return 'The password is incorrect.';
+          default:
+            return 'An unknown error occurred. Please try again.';
+        }
+      };
+
     const login = (email, password) => {
         setError(null)
         setIsPending(true)
@@ -22,7 +37,7 @@ export const useLogin = () => {
                 setIsPending(false)
             })
             .catch((err) => {
-                setError(err.message)
+                setError(getCustomErrorMessage(err.message))
                 setIsPending(false)
             })
 

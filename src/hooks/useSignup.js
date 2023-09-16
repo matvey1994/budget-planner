@@ -10,8 +10,22 @@ export function useSignup() {
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
 
+    const getCustomErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 'auth/email-already-in-use':
+                return 'This email is already registered. Try logging in.';
+            case 'auth/invalid-email':
+                return 'Please enter a valid email address.';
+            case 'auth/operation-not-allowed':
+                return 'Email and Password authentication is not enabled. Contact support.';
+            case 'auth/weak-password':
+                return 'Your password is too weak. Please choose a stronger password.';
+            default:
+                return 'An unknown error occured. Please try again later.'
+        }
+    }
+
     const signup = (email, password, displayName) => {
-        console.log('Password:', password); 
         setError(null)
         setIsPending(true)
 
@@ -28,8 +42,7 @@ export function useSignup() {
                 }
             })
             .catch((err) => {
-                console.error(err)
-                setError(err.message)
+                setError(getCustomErrorMessage(err.message))
                 setIsPending(false)
             });
     }
