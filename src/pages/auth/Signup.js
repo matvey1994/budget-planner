@@ -54,7 +54,6 @@ export default function Signup() {
         .required('Password is required')
     }),
     onSubmit: (values) => {
-      console.log(values)
       signup(values.email, values.password, values.displayName)
     }
   })
