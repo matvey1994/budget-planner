@@ -27,6 +27,9 @@ export default function Login() {
     }
   }, [error])
 
+  setTimeout(() => {
+    setOpen(false)
+  }, 5000);
 
   const formik = useFormik({
     initialValues: {
@@ -176,7 +179,6 @@ export default function Login() {
                           size="small"
                           onClick={() => {
                             setOpen(false);
-                            console.log(open)
                           }}
                         >
                           <CloseIcon fontSize="inherit" />

@@ -30,6 +30,10 @@ export default function Signup() {
     }
   }, [error])
 
+  setTimeout(() => {
+    setOpen(false)
+  }, 5000);
+
   const formik = useFormik({
     initialValues: {
       email: '',
