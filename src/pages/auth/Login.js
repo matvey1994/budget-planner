@@ -1,6 +1,6 @@
 import { useLogin } from '../../hooks/useLogin'
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import {
   Alert,
@@ -14,12 +14,25 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Collapse from '@mui/material/Collapse';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+import { green } from '@mui/material/colors';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function Login() {
   // Utilise isPending to add loading and prevent user from clicking on continue.
   const { error, login, isPending, loginAnonymously } = useLogin()
   const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (error) {
+      setOpen(true)
+    }
+  }, [error])
+
+  setTimeout(() => {
+    setOpen(false)
+  }, 5000);
 
   const formik = useFormik({
     initialValues: {
@@ -145,14 +158,34 @@ export default function Login() {
                   sx={{ mt: 3 }}
                   type="submit"
                   variant="contained"
+                  disabled={isPending}
                 >
                   Continue
                 </Button>
+                {isPending && (
+                  <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                  >
+                    <CircularProgress
+                      size={35}
+                      sx={{
+                        color: green[500],
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        marginTop: '-12px',
+                        marginLeft: '-12px',
+                      }}
+                  />
+                  </Backdrop>
+                )}
                 <Button
                   fullWidth
                   size="large"
                   sx={{ mt: 3, background: '#F1EE63' }}
                   onClick={loginAnonymously}
+                  disabled={isPending}
                 >
                   Continue as guest
                 </Button>
@@ -169,7 +202,6 @@ export default function Login() {
                           size="small"
                           onClick={() => {
                             setOpen(false);
-                            console.log(open)
                           }}
                         >
                           <CloseIcon fontSize="inherit" />

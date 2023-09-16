@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSignup } from '../../hooks/useSignup'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { Alert, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useFormik } from 'formik';
@@ -12,6 +13,8 @@ import * as Yup from 'yup';
 import { Link as RouterLink } from 'react-router-dom';
 import img from '../../assets/images/Dual_blob.svg'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import CloseIcon from '@mui/icons-material/Close';
+import Collapse from '@mui/material/Collapse';
 
 
 export default function Signup() {
@@ -19,6 +22,17 @@ export default function Signup() {
   // Utilise isPending to disable button after form submission and display loading animation
   const { error, isPending, signup } = useSignup()
   const matches = useMediaQuery('(min-width:1200px)');
+  const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (error) {
+      setOpen(true)
+    }
+  }, [error])
+
+  setTimeout(() => {
+    setOpen(false)
+  }, 5000);
 
   const formik = useFormik({
     initialValues: {
@@ -40,7 +54,6 @@ export default function Signup() {
         .required('Password is required')
     }),
     onSubmit: (values) => {
-      console.log(values)
       signup(values.email, values.password, values.displayName)
     }
   })
@@ -195,6 +208,29 @@ export default function Signup() {
                 >
                   Continue
                 </Button>
+                {error && (
+                  <Collapse in={open}>
+                    <Alert
+                        color="error"
+                        severity="error"
+                        variant="outlined"
+                        sx={{ mt: 1 }}
+                        action={<IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="small"
+                          onClick={() => {
+                            setOpen(false);
+                            console.log(open)
+                          }}
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </IconButton>}
+                      >
+                        {error}
+                    </Alert>
+                  </Collapse>
+                )}
               </form>
             </Box>
           </Grid>
