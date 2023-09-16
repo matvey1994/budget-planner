@@ -1,6 +1,6 @@
 import { useLogin } from '../../hooks/useLogin'
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import {
   Alert,
@@ -20,6 +20,13 @@ export default function Login() {
   // Utilise isPending to add loading and prevent user from clicking on continue.
   const { error, login, isPending, loginAnonymously } = useLogin()
   const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (error) {
+      setOpen(true)
+    }
+  }, [error])
+
 
   const formik = useFormik({
     initialValues: {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSignup } from '../../hooks/useSignup'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -23,6 +23,12 @@ export default function Signup() {
   const { error, isPending, signup } = useSignup()
   const matches = useMediaQuery('(min-width:1200px)');
   const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (error) {
+      setOpen(true)
+    }
+  }, [error])
 
   const formik = useFormik({
     initialValues: {
