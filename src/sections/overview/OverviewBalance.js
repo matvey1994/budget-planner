@@ -7,7 +7,7 @@ import CurrencyDollarIcon from '@heroicons/react/24/solid/CurrencyDollarIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography, IconButton } from '@mui/material';
 import Divider from '@mui/material/Divider';
 
-export const OverviewBudget = (props) => {
+export const OverviewBalance = (props) => {
   const { difference, positive = false, sx, value } = props;
 
   return (
@@ -76,7 +76,7 @@ export const OverviewBudget = (props) => {
   );
 };
 
-OverviewBudget.prototypes = {
+OverviewBalance.prototypes = {
   difference: PropTypes.number,
   positive: PropTypes.bool,
   sx: PropTypes.object,

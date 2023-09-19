@@ -1,6 +1,7 @@
 import { Layout as DashboardLayout } from '../../layouts/dashboard/layout';
-import { Box, Container, Unstable_Grid2 as Grid } from '@mui/material';
-import { OverviewBudget } from '../../sections/overview/OverviewBudget';
+import { Box, Container, Unstable_Grid2 as Grid, Skeleton } from '@mui/material';
+import { OverviewBalance } from '../../sections/overview/OverviewBalance';
+import { OverviewExpenses } from '../../sections/overview/OverviewExpenses';
 
 export default function Main() {
   return (
@@ -26,7 +27,7 @@ export default function Main() {
                 flexBasis: { xs: 'auto', sm: 'auto', lg: '24%' },
               }}
             >
-              <OverviewBudget
+              <OverviewBalance
                 difference={12}
                 positive
                 sx={{ 
@@ -44,7 +45,7 @@ export default function Main() {
                 flexBasis: { xs: 'auto', sm: 'auto', lg: '24%' },
               }}
             >
-              <OverviewBudget
+              <OverviewBalance
                 difference={12}
                 positive
                 sx={{ height: '100%' }}
@@ -66,7 +67,7 @@ export default function Main() {
                 flexBasis: { xs: 'auto', sm: 'auto', lg: '24%' },
               }}
             >
-              <OverviewBudget
+              <OverviewBalance
                 difference={12}
                 positive
                 sx={{ height: '100%' }}
@@ -86,7 +87,7 @@ export default function Main() {
                 flexBasis: { xs: 'auto', sm: 'auto', lg: '24%' },
               }}
             >
-              <OverviewBudget
+              <OverviewBalance
                 difference={12}
                 positive
                 sx={{ height: '100%' }}
@@ -101,19 +102,9 @@ export default function Main() {
               xs={12}
               lg={8}
             >
-              {/* <OverviewSales
-                chartSeries={[
-                  {
-                    name: 'This year',
-                    data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20]
-                  },
-                  {
-                    name: 'Last year',
-                    data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13]
-                  }
-                ]}
+              <OverviewExpenses
                 sx={{ height: '100%' }}
-              /> */}
+              />
             </Grid>
             <Grid
               xs={12}
