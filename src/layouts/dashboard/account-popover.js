@@ -56,6 +56,7 @@ export const AccountPopover = ({ anchorEl, onClose, open }) => {
           }
         }}
       >
+        {/* FIX signout handle function */}
         <MenuItem onClick={handleSignOut}>
           Sign out
         </MenuItem>
