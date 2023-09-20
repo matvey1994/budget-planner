@@ -8,7 +8,6 @@ import Main from './pages/main/Main'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Page from './pages/404'
-import Navbar from "./components/Navbar";
 import { GlobalStyles } from '@mui/system';
 
 const theme = createTheme();
