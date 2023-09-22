@@ -22,6 +22,7 @@ function App() {
               font-family: 'Poppins', sans-serif;
               margin: 0;
               font-size: 1.1em;
+              background: #F1F4F9;
             }
             ul, li, p, h1, h2, h3, h4 {
               margin: 0;
