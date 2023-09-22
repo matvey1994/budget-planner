@@ -17,10 +17,13 @@ import { Logo } from '../../components/logo';
 import { Scrollbar } from '../../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
+import { useLogout } from '../../hooks/useLogout';
+
 
 export const SideNav = ({ open, onClose }) => {
   const pathname = useLocation();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const { logout } = useLogout();
 
   const content = (
     <Scrollbar
@@ -136,6 +139,7 @@ export const SideNav = ({ open, onClose }) => {
           >
             <Button 
               startIcon={<LogoutIcon/>}
+              onClick={logout}
               sx={{
                 color: '#f00f23',
                 '&:hover': {

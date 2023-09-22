@@ -3,7 +3,7 @@ import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/mate
 import { useLogout } from '../../hooks/useLogout';
 
 export const AccountPopover = ({ anchorEl, onClose, open }) => {
-  const { logout, isPending } = useLogout();
+  const { logout } = useLogout();
 
   return (
     <Popover
