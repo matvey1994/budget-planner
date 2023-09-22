@@ -73,6 +73,12 @@ export const SideNav = ({ open, onClose }) => {
               >
                 BudgetMate
               </Typography>
+              <Typography
+                color="neutral.400"
+                variant="body2"
+              >
+                Production
+              </Typography>
             </div>
             <SvgIcon
               fontSize="small"
