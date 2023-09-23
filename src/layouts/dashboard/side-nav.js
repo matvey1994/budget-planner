@@ -24,6 +24,7 @@ export const SideNav = ({ open, onClose }) => {
   const pathname = useLocation();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const { logout } = useLogout();
+  console.log(pathname)
 
   const content = (
     <Scrollbar
@@ -110,8 +111,12 @@ export const SideNav = ({ open, onClose }) => {
             }}
           >
             {items.map((item) => {
-              const active = item.path ? (pathname === item.path) : false;
+              console.log("Current Pathname:", pathname.pathname); // Note that useLocation returns an object with pathname property
+              console.log("Item Path:", item.path);
 
+              const active = item.path ? (pathname.pathname === item.path) : false;
+
+              console.log("Is Active:", active);
               return (
                 <SideNavItem
                   active={active}
