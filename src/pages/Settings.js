@@ -1,4 +1,6 @@
 import { Box, Container, Stack, Typography } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import { Layout as DashboardLayout } from '../layouts/dashboard/layout';
 
 
