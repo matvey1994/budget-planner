@@ -81,7 +81,7 @@ function App() {
               />
 
               <Route 
-                path="/wallet"
+                path="/wallets"
                 element={!user ? <Navigate to="/" /> : <Wallets/>}
               />
 

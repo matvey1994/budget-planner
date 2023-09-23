@@ -111,12 +111,7 @@ export const SideNav = ({ open, onClose }) => {
             }}
           >
             {items.map((item) => {
-              console.log("Current Pathname:", pathname.pathname); // Note that useLocation returns an object with pathname property
-              console.log("Item Path:", item.path);
-
               const active = item.path ? (pathname.pathname === item.path) : false;
-
-              console.log("Is Active:", active);
               return (
                 <SideNavItem
                   active={active}
