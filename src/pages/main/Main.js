@@ -1,5 +1,5 @@
 import { Layout as DashboardLayout } from '../../layouts/dashboard/layout';
-import { Box, Container, Unstable_Grid2 as Grid, Skeleton } from '@mui/material';
+import { Box, Container, Unstable_Grid2 as Grid } from '@mui/material';
 import { OverviewBalance } from '../../sections/overview/OverviewBalance';
 import { OverviewExpenses } from '../../sections/overview/OverviewExpenses';
 import { OverviewBudget } from '../../sections/overview/OverviewBudgets';
@@ -7,8 +7,12 @@ import { OverviewRecentTrans } from '../../sections/overview/OverviewRecentTrans
 import Categories from '../../components/categoryIcons'
 import Wallet from '../../components/walletIcons'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 export default function Main() {
+  const isSmallScreen = useMediaQuery('(max-width:700px)');
+
   return (
     <DashboardLayout>
       <Box
@@ -25,7 +29,7 @@ export default function Main() {
           >
             <Grid
               xs={12}
-              sm={6}
+              reg={4}
               lg={3}
               sx={{
                 flexGrow: 1,
@@ -43,7 +47,7 @@ export default function Main() {
             </Grid>
             <Grid
               xs={12}
-              sm={6}
+              reg={4}
               lg={3}
               sx={{
                 flexGrow: 1,
@@ -59,7 +63,7 @@ export default function Main() {
             </Grid>
             <Grid
               xs={12}
-              sm={6}
+              reg={4}
               lg={3}
               sx={{
                 flexGrow: 1,
@@ -73,22 +77,6 @@ export default function Main() {
                 value="$54,593.75"
               />
             </Grid>
-            {/* <Grid
-              xs={12}
-              sm={6}
-              lg={3}
-              sx={{
-                flexGrow: 1,
-                flexBasis: { xs: 'auto', sm: 'auto', lg: '24%' },
-              }}
-            >
-              <OverviewBalance
-                difference={12}
-                positive
-                sx={{ height: '100%' }}
-                value="$54,593.75"
-              />
-            </Grid> */}
             <Grid
               xs={12}
               lg={8}
