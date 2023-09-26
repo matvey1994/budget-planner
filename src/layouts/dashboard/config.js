@@ -9,7 +9,7 @@ import { SvgIcon } from '@mui/material';
 export const items = [
   {
     title: 'Overview',
-    path: '/main',
+    path: '/',
     icon: (
       <SvgIcon fontSize="small">
         <SpaceDashboardIcon />

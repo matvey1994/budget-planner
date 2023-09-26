@@ -1,21 +1,9 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { useAuthContext as useAuth } from '../../hooks/useAuthContext';
+import { useLogout } from '../../hooks/useLogout';
 
 export const AccountPopover = ({ anchorEl, onClose, open }) => {
-  const history = useNavigate();
-  const auth = useAuth();
-
-  const handleSignOut = useCallback(
-    () => {
-      onClose?.();
-      auth.signOut();
-      history.push('/auth/login');
-    },
-    [onClose, auth, history]
-  );
+  const { logout } = useLogout();
 
   return (
     <Popover
@@ -57,8 +45,8 @@ export const AccountPopover = ({ anchorEl, onClose, open }) => {
         }}
       >
         {/* FIX signout handle function */}
-        <MenuItem onClick={handleSignOut}>
-          Sign out
+        <MenuItem onClick={logout}>
+          Logout
         </MenuItem>
       </MenuList>
     </Popover>

@@ -8,6 +8,11 @@ import Main from './pages/main/Main'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Page from './pages/404'
+import Budget from './pages/Budget'
+import Goals from './pages/Goals'
+import Reports from './pages/Reports'
+import Settings from './pages/Settings'
+import Wallets from './pages/Wallets'
 import { GlobalStyles } from '@mui/system';
 
 const theme = createTheme();
@@ -22,6 +27,7 @@ function App() {
               font-family: 'Poppins', sans-serif;
               margin: 0;
               font-size: 1.1em;
+              background: #F1F4F9;
             }
             ul, li, p, h1, h2, h3, h4 {
               margin: 0;
@@ -67,8 +73,33 @@ function App() {
               <Route 
                 path="*"
                 element={<Page/>}
-                
               />
+              
+              <Route 
+                path="/budget"
+                element={!user ? <Navigate to="/" /> : <Budget/>}
+              />
+
+              <Route 
+                path="/wallets"
+                element={!user ? <Navigate to="/" /> : <Wallets/>}
+              />
+
+              <Route 
+                path="/reports"
+                element={!user ? <Navigate to="/" /> : <Reports/>}
+              />
+
+              <Route 
+                path="/goals"
+                element={!user ? <Navigate to="/" /> : <Goals/>}
+              />
+
+              <Route 
+                path="/settings"
+                element={!user ? <Navigate to="/" /> : <Settings/>}
+              />
+
             </Routes>
           </BrowserRouter>
         )}

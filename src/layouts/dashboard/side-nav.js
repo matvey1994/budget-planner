@@ -17,10 +17,14 @@ import { Logo } from '../../components/logo';
 import { Scrollbar } from '../../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
+import { useLogout } from '../../hooks/useLogout';
+
 
 export const SideNav = ({ open, onClose }) => {
   const pathname = useLocation();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const { logout } = useLogout();
+  console.log(pathname)
 
   const content = (
     <Scrollbar
@@ -73,6 +77,12 @@ export const SideNav = ({ open, onClose }) => {
               >
                 BudgetMate
               </Typography>
+              <Typography
+                color="neutral.400"
+                variant="body2"
+              >
+                Production
+              </Typography>
             </div>
             <SvgIcon
               fontSize="small"
@@ -101,8 +111,7 @@ export const SideNav = ({ open, onClose }) => {
             }}
           >
             {items.map((item) => {
-              const active = item.path ? (pathname === item.path) : false;
-
+              const active = item.path ? (pathname.pathname === item.path) : false;
               return (
                 <SideNavItem
                   active={active}
@@ -130,6 +139,7 @@ export const SideNav = ({ open, onClose }) => {
           >
             <Button 
               startIcon={<LogoutIcon/>}
+              onClick={logout}
               sx={{
                 color: '#f00f23',
                 '&:hover': {

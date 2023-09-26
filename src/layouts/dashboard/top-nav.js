@@ -36,6 +36,8 @@ export const TopNav = ({ onNavOpen }) => {
             lg: `${SIDE_NAV_WIDTH}px`
           },
           top: 0,
+          borderBottom: 1,
+          borderColor: 'rgba(0, 0, 0, 0.1)',
           width: {
             lg: `calc(100% - ${SIDE_NAV_WIDTH}px)`
           },
